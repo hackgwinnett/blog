@@ -4,7 +4,7 @@ author: "HackGwinnett"
 # profile_photo: '/images/profile_photos/jeff.png'
 date: "March 5, 2022"
 excerpt: "Lorem markdownum fine incustoditam unda factura versum occuluere"
-cover_image: "/images/posts/img3.jpg"
+cover_image: "/images/posts/img7.jpg"
 ---
 
 Lorem markdownum fine incustoditam unda factura versum occuluere Aeneas, iuvat
