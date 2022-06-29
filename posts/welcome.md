@@ -4,7 +4,7 @@ author: "Nathan Abraham"
 date: "July 1, 2022"
 excerpt: "Welcome to HackGwinnett's Blog!"
 cover_image: "/images/posts/coding.jpg"
-draft: true
+draft: false
 ---
 
 Welcome to HackGwinnett's blog! We're so glad you're here.
@@ -19,3 +19,6 @@ to find out how you can write your own articles!
 
 Enjoy the rest of your day and look out for **HackGwinnett 2.0** in
 the fall!
+
+Signing off,\
+Nathan
