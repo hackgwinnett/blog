@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+const URL_PREFIX = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export default function Post({ post }) {
   return (
     <div className="card w-80 sm:w-96 bg-base-100 shadow-xl dark:outline dark:outline-1">
@@ -14,7 +16,7 @@ export default function Post({ post }) {
 
         <figcaption className="flex items-center space-x-4">
           <img
-            src={post.frontmatter.profile_photo || "/images/profile_photos/default.png"}
+            src={post.frontmatter.profile_photo ? URL_PREFIX + post.frontmatter.profile_photo : URL_PREFIX + "/images/profile_photos/default.png"}
             alt="Author profile photo"
             className="w-14 h-14 rounded-full object-cover"
           ></img>

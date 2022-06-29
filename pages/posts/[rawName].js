@@ -6,6 +6,7 @@ import Link from "next/link";
 import Head from 'next/head'
 import hljs from "highlight.js";
 
+const URL_PREFIX = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export default function PostPage({
   frontmatter: { title, date, cover_image },
@@ -34,7 +35,7 @@ export default function PostPage({
           <div className="card-body prose max-w-none">
             <h1 className="text-center">{title}</h1>
             <div className="bg-base-200 p-2 rounded-md">Posted on {date}</div>
-            <img src={cover_image} alt="" />
+            <img src={URL_PREFIX + cover_image} alt="" />
             <article className="post-body">
               <div dangerouslySetInnerHTML={{ __html: marked(content) }}></div>
             </article>
