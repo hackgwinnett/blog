@@ -25,7 +25,7 @@ export default function Home({ posts }) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
         {matches
-          ? matches.map((post, index) => <Post key={index} post={post} />)
+          ? matches.map((post, index) => !post.frontmatter.draft && <Post key={index} post={post} />)
           : posts.map((post, index) => !post.frontmatter.draft && <Post key={index} post={post} />)}
       </div>
     </div>
