@@ -7,7 +7,7 @@ export default function Post({ post }) {
     <div className="card w-80 sm:w-96 bg-base-100 shadow-xl dark:outline dark:outline-1">
       <div className="card-body">
         <figure className="">
-          <img src={post.frontmatter.cover_image} alt="Blog cover image" />
+          <img src={URL_PREFIX + post.frontmatter.cover_image} alt="Blog cover image" />
         </figure>
         <div className="bg-base-200 p-2 rounded-md mb-2">
           Posted on {post.frontmatter.date}
