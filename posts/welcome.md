@@ -9,7 +9,7 @@ draft: false
 
 Welcome to HackGwinnett's blog! We're so glad you're here.
 On this blog, you will find a curated list of cutting-edge 
-technologies to use in your next project, mind-blowing tech news
+technologies to use in your next project, mind-blowing tech news,
 and non-technical discussions.
 
 The code for this website is open source. You can access it
