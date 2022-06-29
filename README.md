@@ -13,7 +13,7 @@ and get featured on our blog!
 HackGwinnett's blog is a frontend application built with
 [Next.js](https://nextjs.org). The website uses
 [Tailwind CSS](https://tailwindcss.com/) for styling and typography,
-and Github Pages for Deployment.
+Github Actions for Continuous Integration and Github Pages for Deployment.
 
 ## Build instructions
 
