@@ -41,6 +41,7 @@ node version 14+ installed on your computer)
     ```sh
     npm install
     npm run dev
+    npm run build
     ```
 5. Open up a pull request and we'll review your article!
 
