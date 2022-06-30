@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import Toggle from './Toggle'
+import Link from 'next/link';
+import Toggle from './Toggle';
 
 export default function Header() {
   return (

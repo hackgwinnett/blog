@@ -15,7 +15,7 @@ and non-technical discussions.
 The code for this website is open source. You can access it
 on HackGwinnett's [github profile](https://github.com/hackgwinnett/blog).
 Even **you** can contribute! Look at `CONTRIBUTING.md` in the 
-[github repo]((https://github.com/hackgwinnett/blog))
+[github repo](https://github.com/hackgwinnett/blog)
 to find out how you can write your own articles!
 
 Enjoy the rest of your day and look out for **HackGwinnett 2.0** in
