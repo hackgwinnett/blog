@@ -6,6 +6,8 @@ import Post from "../components/Post";
 import { sortByDate } from "../utils";
 import Searchbar from "../components/Searchbar";
 import { useState } from "react";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { db } from "../firebase/createClient";
 
 export default function Home({ posts }) {
   const [matches, setMatches] = useState(null);
@@ -37,7 +39,7 @@ export async function getStaticProps() {
   const files = fs.readdirSync(path.join("posts"));
 
   // Get slug and frontmatter from posts
-  const posts = files.map((filename) => {
+  const posts = await  Promise.all(files.map(async (filename) => {
     // Create slug
     const rawName = filename.replace(".md", "");
 
@@ -49,11 +51,22 @@ export async function getStaticProps() {
 
     const { data: frontmatter } = matter(markdownWithMeta);
 
+    // Firebase stuff
+    const docRef = doc(db, "posts", rawName);
+    const docSnap = await getDoc(docRef);
+
+    const likes = docSnap.exists() ? docSnap.data().likes : 0;
+
+    await setDoc(doc(db, "posts", rawName), {
+      ...frontmatter,
+      likes
+    });
+
     return {
       rawName: rawName,
       frontmatter,
     };
-  });
+  }));
 
   return {
     props: {
