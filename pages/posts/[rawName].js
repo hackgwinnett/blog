@@ -2,9 +2,14 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import marked from "marked";
+
+import { useEffect } from "react";
 import Link from "next/link";
 import Head from 'next/head'
 import hljs from "highlight.js";
+
+import { doc, updateDoc, increment } from "firebase/firestore";
+import { db } from "../../firebase/createClient";
 
 const URL_PREFIX = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
@@ -21,6 +26,18 @@ export default function PostPage({
       return hljs.highlight(code, { language: lang }).value;
     },
   });
+
+  const updateViews = async () => {
+    const postRef = doc(db, "posts", rawName);
+
+    await updateDoc(postRef, {
+      views: increment(1),
+    });
+  }
+
+  useEffect(() => {
+    updateViews();
+  }, []);
 
   return (
     <>

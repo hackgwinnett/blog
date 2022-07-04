@@ -1,17 +1,27 @@
 import Link from "next/link";
+import { useEffect, useState } from "react";
+
+import { db } from "../firebase/createClient";
+import { doc, updateDoc, increment } from "firebase/firestore";
+import { useDocument } from "react-firebase-hooks/firestore";
+
 import UseAnimations from "react-useanimations";
 import heart from "react-useanimations/lib/heart";
-
-import { useEffect, useState } from "react";
-// import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { hslToHex } from "../utils";
-import * as colors from "daisyui/src/colors/themes";
+import { AiOutlineEye } from "react-icons/ai";
 
 const URL_PREFIX = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export default function Post({ post }) {
   const [liked, setLiked] = useState(false);
-  const [primaryColor, setPrimaryColor] = useState(colors["[data-theme=garden]"]["primary"]);
+  const [value, loading, error] = useDocument(
+    doc(db, "posts", post.rawName),
+    {}
+  )
+
+  useEffect(() => {
+    const likedPosts = JSON.parse(localStorage.getItem("hgBlogPostsLiked"));
+    setLiked(likedPosts && likedPosts.includes(post.rawName));
+  }, []);
 
   const handleLike = () => {
     if (liked) {
@@ -23,18 +33,47 @@ export default function Post({ post }) {
     setLiked((prevLiked) => !prevLiked);
   };
 
-  const likeBlogPost = () => {
-    console.log("liked");
+  const likeBlogPost = async () => {
+    const postRef = doc(db, "posts", post.rawName);
+
+    await updateDoc(postRef, {
+      likes: increment(1),
+    });
+
+    const storageLikedPosts = JSON.parse(
+      localStorage.getItem("hgBlogPostsLiked")
+    );
+    const likedPostsArray =
+      storageLikedPosts == null
+        ? []
+        : typeof storageLikedPosts === "string"
+        ? [storageLikedPosts]
+        : storageLikedPosts;
+    localStorage.setItem(
+      "hgBlogPostsLiked",
+      JSON.stringify([...likedPostsArray, post.rawName])
+    );
   };
 
-  const unlikeBlogPost = () => {
-    console.log("disliked");
+  const unlikeBlogPost = async () => {
+    const postRef = doc(db, "posts", post.rawName);
+
+    await updateDoc(postRef, {
+      likes: increment(-1),
+    });
+
+    const storageLikedPosts = JSON.parse(
+      localStorage.getItem("hgBlogPostsLiked")
+    );
+    if (storageLikedPosts) {
+      localStorage.setItem(
+        "hgBlogPostsLiked",
+        JSON.stringify(
+          storageLikedPosts.filter((item) => item !== post.rawName)
+        )
+      );
+    }
   };
-
-  useEffect(() => {
-    setPrimaryColor(colors[`[data-theme=${document.documentElement.dataset.theme || "garden"}]`]["primary"]);
-  }, [])
-
 
   return (
     <div className="card w-80 sm:w-96 bg-base-100 shadow-xl dark:outline dark:outline-1">
@@ -45,21 +84,8 @@ export default function Post({ post }) {
             alt="Blog cover image"
           />
         </figure>
-        <div className="bg-base-200 p-2 rounded-md mb-2 flex justify-between items-center">
+        <div className="bg-base-200 p-2 rounded-md mb-2 flex items-center justify-between">
           Posted on {post.frontmatter.date}
-          {/* {liked ? (
-            <AiFillHeart className="w-8 h-8 inline text-primary" onClick={handleLike} />
-          ) : (
-            <AiOutlineHeart className="w-8 h-8 inline text-primary" onClick={handleLike} />
-          )} */}
-          <UseAnimations
-            animation={heart}
-            size={36}
-            reverse={liked}
-            onClick={handleLike}
-            strokeColor={"black"}
-            fillColor={"red"}
-          />
         </div>
         <h3 className="card-title">{post.frontmatter.title}</h3>
 
@@ -80,6 +106,24 @@ export default function Post({ post }) {
         </figcaption>
 
         <p>{post.frontmatter.excerpt}</p>
+
+        <div className="p-2 rounded-md mb-2 justify-around flex gap-1 items-center">
+          <div className="flex items-center gap-2">
+            <span>{ loading ? "..." : value.data().likes } { value && value.data().likes === 1 ? "like" : "likes" }</span>
+            <UseAnimations
+              animation={heart}
+              size={36}
+              reverse={liked}
+              onClick={handleLike}
+              strokeColor={"black"}
+              fillColor={"red"}
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <span>{ loading ? "..." : value.data().views } { value && value.data().views === 1 ? "view" : "views" }</span>
+            <AiOutlineEye size={36} />
+          </div>
+        </div>
 
         <Link href={`/posts/${post.rawName}`} passHref>
           <button className="btn btn-primary btn-md">Read More</button>

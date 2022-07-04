@@ -38,9 +38,9 @@ export async function getStaticProps() {
   // Get files from the posts dir
   const files = fs.readdirSync(path.join("posts"));
 
-  // Get slug and frontmatter from posts
-  const posts = await  Promise.all(files.map(async (filename) => {
-    // Create slug
+  // Get rawName and frontmatter from posts
+  const posts = await Promise.all(files.map(async (filename) => {
+    // Create rawName
     const rawName = filename.replace(".md", "");
 
     // Get frontmatter
@@ -55,11 +55,13 @@ export async function getStaticProps() {
     const docRef = doc(db, "posts", rawName);
     const docSnap = await getDoc(docRef);
 
-    const likes = docSnap.exists() ? docSnap.data().likes : 0;
+    const likes = docSnap.exists() ? docSnap.data().likes ? docSnap.data().likes : 0 : 0;
+    const views = docSnap.exists() ? docSnap.data().views ? docSnap.data().views : 0 : 0;
 
     await setDoc(doc(db, "posts", rawName), {
       ...frontmatter,
-      likes
+      likes,
+      views
     });
 
     return {
