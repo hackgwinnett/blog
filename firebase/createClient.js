@@ -7,22 +7,23 @@ import { getAnalytics } from "firebase/analytics";
 
 const isProd = process.env.NODE_ENV === "production";
 
+// Public keys and config values
 const firebaseConfig = isProd ? {
-  apiKey: process.env.NEXT_PUBLIC_PROD_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_PROD_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_PROD_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_PROD_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_PROD_FIREBASE_MS_ID,
-  appId: process.env.NEXT_PUBLIC_PROD_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_PROD_FIREBASE_MEASUREMENT_ID,
+  apiKey: "AIzaSyCGWLBHSpbSwYdHfVUf_L58Y-1Xoi_yeIA",
+  authDomain: "hg-blog-prod-21e96.firebaseapp.com",
+  projectId: "hg-blog-prod-21e96",
+  storageBucket: "hg-blog-prod-21e96.appspot.com",
+  messagingSenderId: "823099323596",
+  appId: "1:823099323596:web:6d9d2bf2d0cb41d4cc3e69",
+  measurementId: "G-T0PYD414S6"
 } : {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MS_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+  apiKey: "AIzaSyAZH06eXkk4IOcXkPKfmOFEJWtdCRAKEwo",
+  authDomain: "hg-blog-test.firebaseapp.com",
+  projectId: "hg-blog-test",
+  storageBucket: "hg-blog-test.appspot.com",
+  messagingSenderId: "232510969344",
+  appId: "1:232510969344:web:a0a56192f211e7148ceae5",
+  measurementId: "G-3QD6QT3F12"
 };
 
 // Initialize Firebase
