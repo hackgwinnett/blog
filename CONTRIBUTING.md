@@ -39,7 +39,7 @@ with `---`.
 4. **[Optional]** Build the site and make sure everything works (you must have 
 node version 14+ installed on your computer). You can also set up a sample database
 using firebase if you want. Look at the environment variables used in `firebase/createClient.js`
-for environment variable names.
+for environment variable names and create a `.env.local` file in the root directory with those names.
     ```sh
     npm install
     npm run dev
