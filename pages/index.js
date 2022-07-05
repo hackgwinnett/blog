@@ -25,6 +25,8 @@ export default function Home({ posts }) {
 
       <Searchbar posts={posts} setMatches={setMatches} />
 
+      { matches && <h2 className="font-semibold text-lg mt-4">Search Results</h2> }
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
         {matches
           ? matches.map((post, index) => !post.frontmatter.draft && <Post key={index} post={post} />)

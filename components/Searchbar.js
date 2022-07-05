@@ -19,7 +19,7 @@ export default function Searchbar({ posts, setMatches }) {
   const onSearch = ({ currentTarget }) => {
     setQuery(currentTarget.value);
     if (currentTarget.value === "") {
-      setMatches(posts);
+      setMatches(null);
       return;
     }
     const results = fuse.search(currentTarget.value);
