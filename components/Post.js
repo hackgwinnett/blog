@@ -16,7 +16,7 @@ export default function Post({ post }) {
   const [value, loading, error] = useDocument(
     doc(db, "posts", post.rawName),
     {}
-  )
+  );
 
   useEffect(() => {
     const likedPosts = JSON.parse(localStorage.getItem("hgBlogPostsLiked"));
@@ -108,23 +108,32 @@ export default function Post({ post }) {
         <p>{post.frontmatter.excerpt}</p>
 
         <div className="p-2 rounded-md mb-2 justify-around flex gap-1 items-center">
-          <div className="flex items-center gap-2">
-            <span>{ loading ? "..." : value.data().likes } { value && value.data().likes === 1 ? "like" : "likes" }</span>
-            <UseAnimations
-              animation={heart}
-              size={36}
-              reverse={liked}
-              onClick={handleLike}
-              strokeColor={"black"}
-              fillColor={"red"}
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <span>{ loading ? "..." : value.data().views } { value && value.data().views === 1 ? "view" : "views" }</span>
-            <AiOutlineEye size={36} />
-          </div>
+          {!error && value && value.data() && (
+            <>
+              <div className="flex items-center gap-2">
+                <span>
+                  {loading ? "..." : value.data().likes}{" "}
+                  {value && value.data().likes === 1 ? "like" : "likes"}
+                </span>
+                <UseAnimations
+                  animation={heart}
+                  size={36}
+                  reverse={liked}
+                  onClick={handleLike}
+                  strokeColor={"black"}
+                  fillColor={"red"}
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <span>
+                  {loading ? "..." : value.data().views}{" "}
+                  {value && value.data().views === 1 ? "view" : "views"}
+                </span>
+                <AiOutlineEye size={36} />
+              </div>
+            </>
+          )}
         </div>
-
         <Link href={`/posts/${post.rawName}`} passHref>
           <button className="btn btn-primary btn-md">Read More</button>
         </Link>

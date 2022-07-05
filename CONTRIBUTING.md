@@ -36,12 +36,13 @@ with `---`.
     draft: false
     ---
     ```
-4. Build the site and make sure everything works (you must have 
-node version 14+ installed on your computer)
+4. **[Optional]** Build the site and make sure everything works (you must have 
+node version 14+ installed on your computer). You can also set up a sample database
+using firebase if you want. Look at the environment variables used in `firebase/createClient.js`
+for environment variable names.
     ```sh
     npm install
     npm run dev
-    npm run build
     ```
 5. Open up a pull request and we'll review your article!
 
