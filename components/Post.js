@@ -6,12 +6,22 @@ import { doc, updateDoc, increment } from "firebase/firestore";
 import { useDocument } from "react-firebase-hooks/firestore";
 
 import { AiOutlineEye } from "react-icons/ai";
+
+import { MuiThemeProvider, createTheme } from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 
 const URL_PREFIX = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#f50057",
+    },
+  }
+});
 
 export default function Post({ post }) {
   const [liked, setLiked] = useState(false);
@@ -117,16 +127,18 @@ export default function Post({ post }) {
                   {loading ? "..." : value.data().likes}{" "}
                   {value && value.data().likes === 1 ? "like" : "likes"}
                 </span>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      icon={<FavoriteBorder fontSize="large" htmlColor="black" />}
-                      checkedIcon={<Favorite fontSize="large" />}
-                      name="checkedH"
-                      onClick={handleLike}
-                    />
-                  }
-                />
+                <MuiThemeProvider theme={theme}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        icon={liked ? <Favorite color="primary" fontSize="large" /> : <FavoriteBorder fontSize="large" htmlColor="black" />}
+                        checkedIcon={!liked ? <FavoriteBorder fontSize="large" htmlColor="black" /> : <Favorite color="primary" fontSize="large" />  }
+                        name="checkedH"
+                        onClick={handleLike}
+                      />
+                    }
+                  />
+                </MuiThemeProvider>
               </div>
               <div className="flex items-center gap-2">
                 <span>
