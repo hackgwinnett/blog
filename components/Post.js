@@ -5,9 +5,11 @@ import { db } from "../firebase/createClient";
 import { doc, updateDoc, increment } from "firebase/firestore";
 import { useDocument } from "react-firebase-hooks/firestore";
 
-import UseAnimations from "react-useanimations";
-import heart from "react-useanimations/lib/heart";
 import { AiOutlineEye } from "react-icons/ai";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Favorite from "@material-ui/icons/Favorite";
+import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 
 const URL_PREFIX = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
@@ -115,13 +117,15 @@ export default function Post({ post }) {
                   {loading ? "..." : value.data().likes}{" "}
                   {value && value.data().likes === 1 ? "like" : "likes"}
                 </span>
-                <UseAnimations
-                  animation={heart}
-                  size={36}
-                  reverse={liked}
-                  onClick={handleLike}
-                  strokeColor={"black"}
-                  fillColor={"red"}
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      icon={<FavoriteBorder fontSize="large" htmlColor="black" />}
+                      checkedIcon={<Favorite fontSize="large" />}
+                      name="checkedH"
+                      onClick={handleLike}
+                    />
+                  }
                 />
               </div>
               <div className="flex items-center gap-2">
