@@ -8,6 +8,8 @@ import Link from "next/link";
 import Head from 'next/head'
 import hljs from "highlight.js";
 
+import LikeViewCount from "../../components/LikeViewCount";
+
 import { doc, updateDoc, increment } from "firebase/firestore";
 import { db } from "../../firebase/createClient";
 
@@ -51,7 +53,10 @@ export default function PostPage({
         <div className="card shadow-xl mt-2 dark:outline dark:outline-2">
           <div className="card-body prose max-w-none">
             <h1 className="text-center">{title}</h1>
-            <div className="bg-base-200 p-2 rounded-md">Posted on {date}</div>
+            <div className="bg-base-200 p-2 rounded-md flex flex-col items-center md:flex-row md:justify-between">
+              Posted on {date}
+              <LikeViewCount rawName={rawName} />
+            </div>
             <img src={URL_PREFIX + cover_image} alt="" />
             <article className="post-body">
               <div dangerouslySetInnerHTML={{ __html: marked(content) }}></div>
