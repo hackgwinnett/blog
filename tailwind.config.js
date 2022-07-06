@@ -21,6 +21,7 @@ module.exports = {
         forest: {
           ...require("daisyui/src/colors/themes")["[data-theme=forest]"],
           "base-100": "#292c35",
+          "primary": "#189544",
         }
       }
     ]
