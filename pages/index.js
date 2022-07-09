@@ -3,7 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import Head from "next/head";
 import Post from "../components/Post";
-import { sortByDate } from "../utils";
+import { getReadingTime, sortByDate } from "../utils";
 import Searchbar from "../components/Searchbar";
 import { useState } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -51,7 +51,7 @@ export async function getStaticProps() {
       "utf-8"
     );
 
-    const { data: frontmatter } = matter(markdownWithMeta);
+    const { data: frontmatter, content } = matter(markdownWithMeta);
 
     // Firebase stuff
     const docRef = doc(db, "posts", rawName);
@@ -68,6 +68,7 @@ export async function getStaticProps() {
 
     return {
       rawName: rawName,
+      readingTime: getReadingTime(content),
       frontmatter,
     };
   }));
@@ -78,3 +79,4 @@ export async function getStaticProps() {
     },
   };
 }
+

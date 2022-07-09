@@ -15,7 +15,7 @@ export default function Post({ post }) {
           />
         </figure>
         <div className="bg-base-200 p-2 rounded-md mb-2 flex items-center justify-between">
-          Posted on {post.frontmatter.date}
+          Posted on {post.frontmatter.date} • {post.readingTime} min read
         </div>
         <h3 className="card-title">{post.frontmatter.title}</h3>
 

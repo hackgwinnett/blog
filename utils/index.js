@@ -12,3 +12,10 @@ export const hslToHex = (h, s, l) => {
   };
   return `#${f(0)}${f(8)}${f(4)}`;
 }
+
+export const getReadingTime = (text) => {
+  const wpm = 225;
+  const words = text.trim().split(/\s+/).length;
+  const time = Math.ceil(words / wpm);
+  return typeof time == "number" ? time : 3;
+}

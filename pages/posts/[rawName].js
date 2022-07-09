@@ -9,6 +9,7 @@ import Head from 'next/head'
 import hljs from "highlight.js";
 
 import LikeViewCount from "../../components/LikeViewCount";
+import { getReadingTime } from "../../utils";
 
 import { doc, updateDoc, increment } from "firebase/firestore";
 import { db } from "../../firebase/createClient";
@@ -19,6 +20,7 @@ export default function PostPage({
   frontmatter: { title, date, cover_image },
   rawName,
   content,
+  readingTIme,
 }) {
   marked.setOptions({
     highlight: (code, lang) => {
@@ -54,7 +56,7 @@ export default function PostPage({
           <div className="card-body prose max-w-none">
             <h1 className="text-center">{title}</h1>
             <div className="bg-base-200 p-2 rounded-md flex flex-col items-center md:flex-row md:justify-between">
-              Posted on {date}
+              Posted on {date} • {readingTIme} min read
               <LikeViewCount rawName={rawName} />
             </div>
             <img src={URL_PREFIX + cover_image} alt="" />
@@ -96,6 +98,7 @@ export async function getStaticProps({ params: { rawName } }) {
       frontmatter,
       rawName,
       content,
+      readingTIme: getReadingTime(content),
     },
   };
 }
