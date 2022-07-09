@@ -24,3 +24,7 @@ npm install
 # Run the development server
 npm run dev
 ```
+
+Open up `localhost:3000` on your computer to see the live website. 
+
+For further build instructions, check out `CONTRIBUTING.md`.
