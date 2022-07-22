@@ -12,7 +12,7 @@ export default function Header() {
         </Link>
         <Toggle />
         <IconContext.Provider value={{}}>
-          <a className="ml-auto" href="https://github.com/hackgwinnett/blog" target="_blank">
+          <a className="ml-auto" href="https://github.com/hackgwinnett/blog" rel="noreferrer" target="_blank">
             <AiOutlineGithub className="fill-neutral-content w-8 h-8" />
           </a>
         </IconContext.Provider>
