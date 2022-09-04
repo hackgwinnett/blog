@@ -41,12 +41,10 @@ export default function PostPage({
 
   const parseMarkdown = (postContent) => {
     const rawHtml = marked(postContent);
-    console.log(rawHtml);
     const newHTML = rawHtml.replace(
       /(<img src=")(.+)(")/g,
       `$1${URL_PREFIX}$2$3`
     );
-    console.log(newHTML);
     return newHTML;
   };
 
