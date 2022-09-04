@@ -5,7 +5,7 @@ import marked from "marked";
 
 import { useEffect } from "react";
 import Link from "next/link";
-import Head from 'next/head'
+import Head from "next/head";
 import hljs from "highlight.js";
 
 import LikeViewCount from "../../components/LikeViewCount";
@@ -37,7 +37,18 @@ export default function PostPage({
     await updateDoc(postRef, {
       views: increment(1),
     });
-  }
+  };
+
+  const parseMarkdown = (postContent) => {
+    const rawHtml = marked(postContent);
+    console.log(rawHtml);
+    const newHTML = rawHtml.replace(
+      /(<img src=")(.+)(")/g,
+      `$1${URL_PREFIX}$2$3`
+    );
+    console.log(newHTML);
+    return newHTML;
+  };
 
   useEffect(() => {
     updateViews();
@@ -46,7 +57,7 @@ export default function PostPage({
   return (
     <>
       <Head>
-        <title>{ title }</title>
+        <title>{title}</title>
       </Head>
       <div className="max-w-4xl">
         <Link href="/">
@@ -61,7 +72,9 @@ export default function PostPage({
             </div>
             <img src={URL_PREFIX + cover_image} alt="" />
             <article className="post-body">
-              <div dangerouslySetInnerHTML={{ __html: marked(content) }}></div>
+              <div
+                dangerouslySetInnerHTML={{ __html: parseMarkdown(content) }}
+              ></div>
             </article>
           </div>
         </div>
