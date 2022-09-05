@@ -39,17 +39,18 @@ export default function PostPage({
     });
   };
 
-  const parseMarkdown = (postContent) => {
+  const parseMarkdown = (postContent, urlPrefix) => {
     const rawHtml = marked(postContent);
     const newHTML = rawHtml.replace(
       /(<img src=")(.+)(")/g,
-      `$1${URL_PREFIX}$2$3`
+      `$1${urlPrefix}$2$3`
     );
     return newHTML;
   };
 
   useEffect(() => {
     updateViews();
+    console.log("url prefix:", URL_PREFIX);
   }, []);
 
   return (
@@ -71,7 +72,7 @@ export default function PostPage({
             <img src={URL_PREFIX + cover_image} alt="" />
             <article className="post-body">
               <div
-                dangerouslySetInnerHTML={{ __html: parseMarkdown(content) }}
+                dangerouslySetInnerHTML={{ __html: parseMarkdown(content, URL_PREFIX) }}
               ></div>
             </article>
           </div>
